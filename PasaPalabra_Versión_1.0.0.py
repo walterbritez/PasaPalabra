@@ -241,7 +241,7 @@ def nueva_partida(puntaje_total):
         print(f"El puntaje total es: {puntaje_total}") 
         print("¡Juego terminado! - ¡Gracias Por Jugar!")
     else:
-        resultado = nueva_partida()
+        resultado = nueva_partida(puntaje_total)
     return resultado
 
 
