@@ -211,6 +211,9 @@ def main():
     resumen(datos)
 
 def nueva_partida():
+    # Nueva_partida esta hecha para ser llamada a la hora de decidir si se vuelve a jugar.
+    # Esta hecha para solo aceptar valores y o n para evitar errores de input, y la armamos 
+    # para modificar la condicion del loop while que mantiene el codigo repitiendose.
     resultado = True
     yes_no = input("¿Desea jugar otra? y/n ")
     if yes_no == "y":
@@ -223,4 +226,5 @@ def nueva_partida():
 
 while desea_jugar:
     main()
+    # desea_jugar fue creada como condicion al principio del codigo y es modificada con la ultima funcion
     desea_jugar = nueva_partida()
