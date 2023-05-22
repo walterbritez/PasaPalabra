@@ -223,27 +223,27 @@ def iniciar_partida():
     resumen(datos)
     return datos[PUNTAJE_TOTAL]
 
-def estado_juego(puntaje_total):
-    '''
-    Pre: recibe un puntaje 
-    Post: devuelve un caracter y muestra por pantalla el puntaje total
+
+
+def nueva_partida(puntaje_total):
+    """
+    Nueva partida hace un loop con recursividad que solo acepta los valores s/n para evitar errores.
     Hecho por: Nahuel Cabrera
-    Modificado por: Walter Britez  
-    '''
-    valido=False
-    while valido==False:
-        continuar=str(input("¿Quiere jugar otra partida? (s/n): "))
-        limpiar_pantalla()
-        if continuar.lower()=="s":
-            valido=True
-            print("¡Nuevo Ronda!")
-        elif continuar.lower()=="n":
-            valido=True
-            print("¡Ronda Terminada! - ¡Gracias Por Jugar!")
-        else:
-            print("s (para sí), n (para no)")
-    print(f"El puntaje total es: {puntaje_total}")  
-    return continuar
+    Modificado por: Walter Britez y Felipe Gazcon
+    """
+    resultado = True
+    yes_no = input("¿Quiere jugar otra partida? (s/n): ")
+    if yes_no == "s":
+        resultado = True
+        print("¡Nuevo Ronda!")
+    elif yes_no == "n":
+        resultado = False
+        print(f"El puntaje total es: {puntaje_total}") 
+        print("¡Juego terminado! - ¡Gracias Por Jugar!")
+    else:
+        resultado = nueva_partida()
+    return resultado
+
 
 def main():
     """
@@ -251,10 +251,10 @@ def main():
     Hecho por: Walter Britez
     Modificado por: Brian Duarte
     """
-    continuar="s"
+    continuar=True
     puntaje_total=0
-    while continuar=="s":
+    while continuar:
         puntaje_partida=iniciar_partida()
         puntaje_total+=puntaje_partida
-        continuar=estado_juego(puntaje_total)
+        continuar=nueva_partida(puntaje_total)
 main()
