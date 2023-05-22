@@ -12,6 +12,7 @@ PAL_SELECIONADAS=7
 LETRAS_SELECIONADAS=8
 CORRECTO='a'
 INCORRECTO='e'
+desea_jugar = True
 
 def mostrar(datos,turno):
     '''
@@ -208,4 +209,18 @@ def main():
         limpiar_pantalla()
         turno+=1
     resumen(datos)
-main()
+
+def nueva_partida():
+    resultado = True
+    yes_no = input("¿Desea jugar otra? y/n ")
+    if yes_no == "y":
+        resultado = True
+    elif yes_no == "n":
+        resultado = False
+    else:
+        resultado = nueva_partida()
+    return resultado
+
+while desea_jugar:
+    main()
+    desea_jugar = nueva_partida()
