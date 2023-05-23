@@ -89,7 +89,7 @@ def resumen(datos):
             print(f"Turno de la letra {datos[LETRAS][i]} - Palabra de {len(datos[PALABRA][i][0])} letras - {datos[PALABRA][i][0]} - acierto")
         else:
             print(f"Turno de la letra {datos[LETRAS][i]} - Palabra de {len(datos[PALABRA][i][0])} letras - {datos[RESPUESTA][i]} - error - Palabra Correcta: {datos[PALABRA][i][0]}")
-    print(f"puntaje de la ronda: {resultados}")
+    print(f"Puntaje de la ronda: {resultados}")
     datos[PUNTAJE_TOTAL]=resultados
 
 def generar_letras_palabras(datos,palabras_definiciones):
@@ -149,24 +149,18 @@ def generar_diccionario_palabras():
     # es asi, hace tres cosas: agrega la el conjunto palabra-definicion al
     # diccionario pedido, aumenta en 1 el contador de cantidad de palabras,
     # y aumenta en 1 el contador de palabras por letra.
-    for palabra_definicion in obtener_lista_definiciones():
 
+    dicc_vocales_acentuadas = {
+        "á":"a", "é":"e", "í":"i", "ó":"o", "ú": "u"
+    }
+    for palabra_definicion in obtener_lista_definiciones():
     # Este fragmento es para evitar la errores por las tildes y sumar la
     # cantidad de palabras por letra de manera correcta
-        if palabra_definicion[0][0] == "á":
-            letra = "a"
-        elif palabra_definicion[0][0] == "é":
-            letra = "e"
-        elif palabra_definicion[0][0] == "í":
-            letra = "i"
-        elif palabra_definicion[0][0] == "ó":
-            letra = "o"
-        elif palabra_definicion[0][0] == "ú":
-            letra = "u"
+        if palabra_definicion[0][0] in dicc_vocales_acentuadas.keys():
+            letra = dicc_vocales_acentuadas[palabra_definicion[0][0]]
         else:
             letra = palabra_definicion[0][0]
 
-    # Este bloque 
         if len(palabra_definicion[1]) >= 5:
             diccionario_palabras_candidatas[palabra_definicion[0]] = palabra_definicion[1]
             diccionario_cantidad_por_letra[letra] += 1
