@@ -25,24 +25,18 @@ def generar_diccionario_palabras():
     # es asi, hace tres cosas: agrega la el conjunto palabra-definicion al
     # diccionario pedido, aumenta en 1 el contador de cantidad de palabras,
     # y aumenta en 1 el contador de palabras por letra.
-    for palabra_definicion in obtener_lista_definiciones():
 
+    diccionario_vocales_acento = {
+        "á":"a", "é":"e", "í":"i", "ó":"o", "ú":"u"
+    }
+    for palabra_definicion in obtener_lista_definiciones():
     # Este fragmento es para evitar la errores por las tildes y sumar la
     # cantidad de palabras por letra de manera correcta
-        if palabra_definicion[0][0] == "á":
-            letra = "a"
-        elif palabra_definicion[0][0] == "é":
-            letra = "e"
-        elif palabra_definicion[0][0] == "í":
-            letra = "i"
-        elif palabra_definicion[0][0] == "ó":
-            letra = "o"
-        elif palabra_definicion[0][0] == "ú":
-            letra = "u"
+        if palabra_definicion[0][0] in diccionario_vocales_acento:
+            letra = diccionario_vocales_acento[palabra_definicion[0][0]]
         else:
             letra = palabra_definicion[0][0]
 
-    # Este bloque 
         if len(palabra_definicion[1]) >= 5:
             diccionario_palabras_candidatas[palabra_definicion[0]] = palabra_definicion[1]
             diccionario_cantidad_por_letra[letra] += 1
