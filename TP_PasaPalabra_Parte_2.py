@@ -37,7 +37,7 @@ def generar_diccionario_palabras():
         else:
             letra = palabra_definicion[0][0]
 
-        if len(palabra_definicion[1]) >= 5:
+        if len(palabra_definicion[0]) >= 5:
             diccionario_palabras_candidatas[palabra_definicion[0]] = palabra_definicion[1]
             diccionario_cantidad_por_letra[letra] += 1
             cantidad_de_palabras += 1
