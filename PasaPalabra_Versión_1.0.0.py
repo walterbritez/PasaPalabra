@@ -22,7 +22,11 @@ def mostrar(datos,turno):
     Hecho por: Walter Britez
     Modificado por:
     '''
+    rosco="LETRAS DEL ROSCO"
+    aciertos="ACIERTOS(a) Y ERRORES(e) POR PALABRAS"
+    print(f"{rosco:-^70}")
     print(datos[LETRAS])
+    print(f"{aciertos:-^70}")
     print(datos[RESULTADOS])
     print("Aciertos "+"\033[1;32m"+f"{datos[ACIERTOS]}"+ "\033[0m")
     print("Errores "+"\033[1;31m"+f"{datos[ERRORES]}"+"\033[0m") 
@@ -217,8 +221,6 @@ def iniciar_partida():
     resumen(datos)
     return datos[PUNTAJE_TOTAL]
 
-
-
 def nueva_partida(puntaje_total):
     """
     Nueva partida hace un loop con recursividad que solo acepta los valores s/n para evitar errores.
@@ -237,7 +239,6 @@ def nueva_partida(puntaje_total):
     else:
         resultado = nueva_partida(puntaje_total)
     return resultado
-
 
 def main():
     """
