@@ -4,7 +4,10 @@ COLOR_BOTON = "#014bad"
 COLOR_ENTRADA="#fefffe"
 NOMBRE=0
 CLAVE=1
-ARCHIVO='usuarios.csv'
+ARCHIVO_USUARIOS="./archivos/usarios.csv"
+IMG_ENTRAR_JUGAR="./imagenes/Entrar_jugar.png"
+IMG_REGISTRAR="./imagenes/registrar.png"
+IMG_CONTINUAR="./imagenes/Continuar.png"
 CANT_NOMBRE_MAX=20
 CANT_NOMBRE_MIN=4
 CANT_CLAVE_MAX=12
@@ -38,7 +41,7 @@ def interfaz_salida():
     vent_salida.title("PasaPalabra Registrarse")
     vent_salida.resizable(0, 0)
     vent_salida.geometry('800x600+400+60')
-    fondo= tk.PhotoImage(file="Continuar.png")
+    fondo= tk.PhotoImage(file=IMG_CONTINUAR)
     fondo_1=tk.Label(vent_salida,image=fondo).place(x=0,y=0,relwidth=1,relheight=1)
 
     #Boton
@@ -144,7 +147,7 @@ def registrar_contraseña(usuario_1,clave_1):
     usuario=usuario_1.get()
     clave=clave_1.get()
     if validar_ingreso_clave(clave) and validar_ingreso_usuario(usuario):
-        archivo=open(ARCHIVO,"a+")
+        archivo=open(ARCHIVO_USUARIOS,"a+")
         archivo.write(f"\n{usuario},{clave}")
         archivo.close()
         messagebox.showinfo('Registrado' , 'Usuario y Clave correctos.\nVuelva a Ingresar con su nueva cuenta')
@@ -153,7 +156,7 @@ def registrar_contraseña(usuario_1,clave_1):
 
 def es_registrable(usuario,clave):
     no_registrado=False
-    archivo=open(ARCHIVO,"r")
+    archivo=open(ARCHIVO_USUARIOS,"r")
     for linea in archivo:
         linea=linea.rstrip("\n").split(",")
         if linea[NOMBRE]==usuario.get():
@@ -179,7 +182,7 @@ def interfaz_registra_usuario():
     vent_registrar.title("PasaPalabra Registrarse")
     vent_registrar.resizable(0, 0)
     vent_registrar.geometry('800x600+400+60')
-    fondo= tk.PhotoImage(file="Registrar.png")
+    fondo= tk.PhotoImage(file=IMG_REGISTRAR)
     fondo_1=tk.Label(vent_registrar,image=fondo).place(x=0,y=0,relwidth=1,relheight=1)
 
     usuario=tk.StringVar()
@@ -223,7 +226,7 @@ def validar_ingreso(usuario_1,clave_1,jugadores):
     Corregido por:
     '''
     usuario_valido = False
-    archivo=open(ARCHIVO,"r")
+    archivo=open(ARCHIVO_USUARIOS,"r")
     if not usuario_1.get() in jugadores:
         for linea in archivo:
             linea=linea.rstrip("\n").split(",")
@@ -253,7 +256,7 @@ def interfaz_entrada(jugadores):
     vent_entrada.title("PasaPalabra Entrada")
     vent_entrada.resizable(0, 0)
     vent_entrada.geometry("800x600+400+60")
-    fondo=tk.PhotoImage(file="Entrar_jugar.png")
+    fondo=tk.PhotoImage(file=IMG_ENTRAR_JUGAR)
     fondo_1=tk.Label(vent_entrada, image=fondo).place(x=0,y=0,relheight=1,relwidth=1)
     
         

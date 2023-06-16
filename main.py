@@ -1,5 +1,5 @@
 import estado_juego 
-import interfaz_usuarios
+from interfaces.interfaz_usuarios import iniciar_interfaz
 
 def main():
     """
@@ -10,7 +10,7 @@ def main():
     """
     estado_juego.verificar_archivos()
     estado_juego.verificar_fotos()
-    nom_jugadores=interfaz_usuarios.iniciar_interfaz()
+    nom_jugadores=iniciar_interfaz()
     
     '''
     ESTA PARTE SE COMENTO. SE IMPLEMENTARÁ MODIFICANDOLO PARA LAS SIGUIENTES ETAPAS 
