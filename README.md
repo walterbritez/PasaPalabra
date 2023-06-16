@@ -10,4 +10,5 @@ https://github.com/walterbritez/TP_PasaPalabra.git
 
 #Características:
 
-Código tipeado en lenguaje Python. Para usarse en el sistema operativo de Windows. Recomendamos usarse en la terminal Visual Studio ya que algunos colores de letras no salen en la terminal o si se ejecutan con python 3.10.
+Código tipeado en lenguaje Python. Para usarse en el sistema operativo de Windows
+ 
