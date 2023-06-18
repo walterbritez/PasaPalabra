@@ -27,7 +27,7 @@ def leer_archivo_csv(nombre_archivo):
     # Modificado por:
     # Corregido por:
 
-    ruta_archivo_csv = os.path.join(os.path.dirname(__file__), "Etapa 8", nombre_archivo)
+    ruta_archivo_csv = os.path.join(os.path.dirname(__file__), "Etapa_8", nombre_archivo)
     with open(ruta_archivo_csv, "r", encoding="utf-8") as archivo_csv:
         lector = csv.reader(archivo_csv, delimiter=',')
         palabras = list(lector)
