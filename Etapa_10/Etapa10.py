@@ -39,6 +39,8 @@ def establecer_configuracion():
     Primero usamos la función para resetear la configuración, luego leemos la configuración como está y armamos
     una lista, preguntando si quiere mantener ese valor o modificandolo. Luego, un writer sobreescribe los nuevos
     valores.
+    Hecho por: Felipe Gazcon
+    Modificado por: 
     '''
     reseteo_archivo_config()
     filas_nuevas = []
