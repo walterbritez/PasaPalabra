@@ -1,11 +1,11 @@
-import csv
 import random
 import os
-from operaciones.constantes_operaciones import*
+from operaciones.constantes_operaciones import *
 from operaciones.generar_datos import formar_archivo_csv
 from operaciones.configuracion import establecer_configuracion
 from interfaces.interfaz_salida import es_salir
-from interfaces.interfaz_juego import*
+from interfaces.interfaz_juego import *
+
 
 def limpiar_consola():
     """
@@ -22,6 +22,7 @@ def limpiar_consola():
     else:
         os.system('clear')
 
+
 def leer_archivo_csv():
     """
     Lee un archivo CSV y retorna una lista con los datos leídos.
@@ -30,11 +31,13 @@ def leer_archivo_csv():
     # Modificado por: Walter Britez
     # Corregido por:
 
-    #ruta_archivo_csv = os.path.join(os.path.dirname(__file__), "Etapa_8", nombre_archivo)
+    palabras = []
     with open(ARCHIVO_DATOS, "r", encoding="utf-8") as archivo_csv:
-        lector = csv.reader(archivo_csv, delimiter=',')
-        palabras = list(lector)
+        for linea in archivo_csv:
+            palabra = linea.strip().split(',')
+            palabras.append(palabra)
     return palabras
+
 
 def siguiente_turno(turno_actual, participantes):
     """
@@ -50,6 +53,7 @@ def siguiente_turno(turno_actual, participantes):
         siguiente_turno = 1
     return siguiente_turno
 
+
 def es_continuar():
     continuar = input("\n¿Desea continuar a la siguiente ronda? (S/N): ")
     if continuar.lower() == "n":
@@ -59,16 +63,18 @@ def es_continuar():
     limpiar_consola()  # Limpia la consola antes de cada ronda
     return continuar
 
-def obtener_puntaje_parcial(participantes):
-    parcial=0
-    for jugador in participantes.values():
-        parcial=jugador[PUNTOS]
-        jugador[PUNT_PARCIALES]+=parcial
-        print(f"\nPrueba de que parciales se está sumando{jugador[PUNT_PARCIALES]}")
-        jugador[PUNTOS]=0
 
-def procesar_respuesta(turno_actual,turno_jugador,participantes,configuracion,resultado_partida,rosco,rondas):
-    respuesta = input("Ingrese la palabra correspondiente (presione P para Pasapalabra): ") 
+def obtener_puntaje_parcial(participantes):
+    parcial = 0
+    for jugador in participantes.values():
+        parcial = jugador[PUNTOS]
+        jugador[PUNT_PARCIALES] += parcial
+        print(f"\nPrueba de que parciales se está sumando{jugador[PUNT_PARCIALES]}")
+        jugador[PUNTOS] = 0
+
+
+def procesar_respuesta(turno_actual, turno_jugador, participantes, configuracion, resultado_partida, rosco, rondas):
+    respuesta = input("Ingrese la palabra correspondiente (presione P para Pasapalabra): ")
     if respuesta.lower() == "p":
         turno_jugador = siguiente_turno(turno_actual, participantes)  # Siguiente turno si se pasa
 
@@ -77,8 +83,8 @@ def procesar_respuesta(turno_actual,turno_jugador,participantes,configuracion,re
         participantes[turno_jugador][ACIERTOS] += 1
         participantes[turno_jugador][PUNTOS] += int(configuracion[PTOS_ACIERTOS])
         resultado_partida.append(
-        f"Ronda {rondas + 1} - Turno {turno_jugador} - Letra: {rosco[0][0]} - Jugador: {participantes[turno_jugador][JUGADOR]} - Palabra de {len(rosco[0])} letras - {rosco[0]} - Acierto"
-            )
+            f"Ronda {rondas + 1} - Turno {turno_jugador} - Letra: {rosco[0][0]} - Jugador: {participantes[turno_jugador][JUGADOR]} - Palabra de {len(rosco[0])} letras - {rosco[0]} - Acierto"
+        )
     elif respuesta == "":
         print("Debe ingresar una palabra por favor.")
         saltar_ronda = True
@@ -86,11 +92,12 @@ def procesar_respuesta(turno_actual,turno_jugador,participantes,configuracion,re
         participantes[turno_jugador][ERRORES] += 1
         participantes[turno_jugador][PUNTOS] -= int(configuracion[PTOS_ERRORES])
         resultado_partida.append(
-                f"Ronda {rondas + 1} - Turno {turno_jugador} - Letra: {rosco[0][0]} - Jugador: {participantes[turno_jugador][JUGADOR]} - Palabra de {len(rosco[0])} letras - {respuesta} - Error - Palabra correcta: {rosco[0]}"
-            )
-        #turno_actual = siguiente_turno(turno_actual, participantes)  # Siguiente turno normal
+            f"Ronda {rondas + 1} - Turno {turno_jugador} - Letra: {rosco[0][0]} - Jugador: {participantes[turno_jugador][JUGADOR]} - Palabra de {len(rosco[0])} letras - {respuesta} - Error - Palabra correcta: {rosco[0]}"
+        )
+        # turno_actual = siguiente_turno(turno_actual, participantes)  # Siguiente turno normal
 
-def jugar(participantes,configuracion):
+
+def jugar(participantes, configuracion):
     """
     Inicia el juego del pasapalabra con el número de rondas especificado.
     """
@@ -104,47 +111,51 @@ def jugar(participantes,configuracion):
     continuar_juego = True
     resultado_partida = []
     while rondas <= int(configuracion[MAX_PARTIDAS]) and continuar_juego:
-        turno_actual=1
-        while turno_actual<=int(configuracion[CANT_TURNO]):
+        turno_actual = 1
+        while turno_actual <= int(configuracion[CANT_TURNO]):
             mostar_participantes(participantes)
             rosco = random.choice(palabras)
-            mostrar_datos(rondas,turno_actual,turno_jugador,participantes,rosco)
-            procesar_respuesta(turno_actual,turno_jugador,participantes,configuracion,resultado_partida,rosco,rondas)
+            mostrar_datos(rondas, turno_actual, turno_jugador, participantes, rosco)
+            procesar_respuesta(turno_actual, turno_jugador, participantes, configuracion, resultado_partida, rosco,
+                               rondas)
             turno_jugador = siguiente_turno(turno_jugador, participantes)  # Siguiente turno si se pasa
-            turno_actual+=1
+            turno_actual += 1
             limpiar_consola()
-        if  rondas < int(configuracion[MAX_PARTIDAS]) and continuar_juego:
+        if rondas < int(configuracion[MAX_PARTIDAS]) and continuar_juego:
             mostrar_puntaje_partida(participantes)  # Mostrar puntaje parcial
             obtener_puntaje_parcial(participantes)
             mostrar_puntaje_parcial(participantes)
             continuar_juego = es_continuar()
-        rondas+=1
-    obtener_puntaje_parcial(participantes) 
-    mostrar_resultado(resultado_partida,participantes,rondas)
-    
+        rondas += 1
+    obtener_puntaje_parcial(participantes)
+    mostrar_resultado(resultado_partida, participantes, rondas)
+
+
 def obtener_configuracion():
-    dicc={}
-    archivo=open(ARCHIVO_CSV_CONFIG_2,"r")
+    dicc = {}
+    archivo = open(ARCHIVO_CSV_CONFIG_2, "r")
     for linea in archivo:
-        linea=linea.rstrip("\n").split(",")
-        dicc[linea[NOMBRE_CONFIGURACION]]=linea[VALOR_CONFIGURACION]
+        linea = linea.rstrip("\n").split(",")
+        dicc[linea[NOMBRE_CONFIGURACION]] = linea[VALOR_CONFIGURACION]
     return dicc
 
+
 def obtener_datos_jugadores(nom_jug):
-    dicc={}
-    indice=1
+    dicc = {}
+    indice = 1
     for i in range(len(nom_jug)):
-        dicc[indice]=[nom_jug[i],0,0,0,0]
-        indice+=1
+        dicc[indice] = [nom_jug[i], 0, 0, 0, 0]
+        indice += 1
     return dicc
+
 
 def iniciar_juego(nom_jugadores):
     continuar_jugando = True
     while continuar_jugando:
         establecer_configuracion()
-        configuracion=obtener_configuracion()
-        participantes=obtener_datos_jugadores(nom_jugadores)
+        configuracion = obtener_configuracion()
+        participantes = obtener_datos_jugadores(nom_jugadores)
         formar_archivo_csv()
         limpiar_consola()
-        jugar(participantes,configuracion)
+        jugar(participantes, configuracion)
         continuar_jugando = es_salir()
