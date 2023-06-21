@@ -1,10 +1,8 @@
-import csv
 import os
 
 RUTA_ARCHIVO = os.path.join("Etapa_10", "configuracion.csv")
 with open(RUTA_ARCHIVO, "r", encoding="utf-8") as configuracion_juego:
-    lector = csv.reader(configuracion_juego, delimiter=",")
-    listado = list(lector)
+    listado = [line.split(",") for line in configuracion_juego]
 MIN_LARGO_PALABRA = int(listado[0][1])
 
 def formar_archivo_csv():
@@ -24,14 +22,12 @@ def formar_archivo_csv():
     ruta_nuevo_archivo = os.path.join(ruta_actual, "nuevo_archivo.csv")
 
     with open(ruta_palabras, "r", encoding="utf-8") as palabras, open(ruta_definiciones, "r", encoding="utf-8") as definiciones, open(ruta_nuevo_archivo, "w", encoding="utf-8", newline="") as nuevo_archivo:
-        escritor = csv.writer(nuevo_archivo, delimiter=',')
-
         linea_palabra = palabras.readline().strip()
         linea_definicion = definiciones.readline().strip()
 
         while linea_palabra:
             if len(linea_palabra) >= MIN_LARGO_PALABRA and linea_palabra.isalpha():
-                escritor.writerow([linea_palabra, linea_definicion])
+                nuevo_archivo.write(f"{linea_palabra},{linea_definicion}\n")
 
             linea_palabra = palabras.readline().strip()
             linea_definicion = definiciones.readline().strip()
