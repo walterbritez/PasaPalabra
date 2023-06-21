@@ -2,6 +2,7 @@ import csv
 import random
 import os
 
+
 def limpiar_consola():
     """
     Limpia la consola según el sistema operativo (Windows, Linux, macOS).
@@ -18,7 +19,6 @@ def limpiar_consola():
         os.system('clear')
 
 
-# ---------------------Para que Funcione debe existir la carpeta Etapa 8--------------#
 def leer_archivo_csv(nombre_archivo):
     """
     Lee un archivo CSV y retorna una lista con los datos leídos.
@@ -146,7 +146,7 @@ def mostrar_puntaje_parcial(participantes):
     # Hecho por: Brian Duarte
     # Modificado por:
     # Corregido por:
-    
+
     print("\nPuntaje Parcial:")
     for jugador in participantes.values():
         puntaje_parcial = jugador['puntos']
