@@ -100,7 +100,7 @@ def jugar(participantes,configuracion):
     palabras = leer_archivo_csv()
     turno_actual = 1
     turno_jugador = 1
-    rondas = 1
+    rondas = 0
     continuar_juego = True
     resultado_partida = []
     while rondas <= int(configuracion[MAX_PARTIDAS]) and continuar_juego:
