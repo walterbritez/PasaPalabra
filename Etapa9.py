@@ -1,4 +1,3 @@
-import csv
 import random
 import os
 
@@ -10,11 +9,9 @@ def limpiar_consola():
     # Hecho por: Brian Duarte
     # Modificado por:
     # Corregido por:
-
-    # Comando para limpiar la consola en Windows
+    
     if os.name == 'nt':
         os.system('cls')
-    # Comando para limpiar la consola en Linux y macOS
     else:
         os.system('clear')
 
@@ -26,11 +23,13 @@ def leer_archivo_csv(nombre_archivo):
     # Hecho por: Brian Duarte
     # Modificado por:
     # Corregido por:
-
+    
     ruta_archivo_csv = os.path.join(os.path.dirname(__file__), "Etapa_8", nombre_archivo)
+    palabras = []
     with open(ruta_archivo_csv, "r", encoding="utf-8") as archivo_csv:
-        lector = csv.reader(archivo_csv, delimiter=',')
-        palabras = list(lector)
+        for linea in archivo_csv:
+            palabra = linea.strip().split(",")
+            palabras.append(palabra)
     return palabras
 
 
@@ -41,7 +40,7 @@ def iniciar_juego(num_rondas):
     # Hecho por: Brian Duarte
     # Modificado por:
     # Corregido por:
-
+    
     palabras = leer_archivo_csv("nuevo_archivo.csv")
     participantes = {
         1: {"nombre": "Pedro", "aciertos": 0, "errores": 0, "puntos": 0},
@@ -66,8 +65,7 @@ def iniciar_juego(num_rondas):
         respuesta = input("Ingrese la palabra correspondiente (presione P para Pasapalabra): ")
 
         if respuesta.lower() == "p":
-            turno_actual = siguiente_turno(turno_actual, participantes)  # Siguiente turno si se pasa
-
+            turno_actual = siguiente_turno(turno_actual, participantes)
         elif respuesta.lower() == rosco[0].lower():
             print("La palabra es correcta.")
             participantes[turno_actual]["aciertos"] += 1
@@ -75,30 +73,27 @@ def iniciar_juego(num_rondas):
             resultado_partida.append(
                 f"Ronda {rondas + 1} - Turno {turno_actual} - Letra: {rosco[0][0]} - Jugador: {participantes[turno_actual]['nombre']} - Palabra de {len(rosco[0])} letras - {rosco[0]} - Acierto"
             )
-            turno_actual = siguiente_turno(turno_actual, participantes)  # Siguiente turno normal
-
+            turno_actual = siguiente_turno(turno_actual, participantes)
         elif respuesta == "":
             print("Debe ingresar una palabra por favor.")
             saltar_ronda = True
-
         else:
             participantes[turno_actual]["errores"] += 1
-            participantes[turno_actual]["puntos"] -= 5  # Restar 5 puntos por cada error
-
+            participantes[turno_actual]["puntos"] -= 5
             resultado_partida.append(
                 f"Ronda {rondas + 1} - Turno {turno_actual} - Letra: {rosco[0][0]} - Jugador: {participantes[turno_actual]['nombre']} - Palabra de {len(rosco[0])} letras - {respuesta} - Error - Palabra correcta: {rosco[0]}"
             )
-            turno_actual = siguiente_turno(turno_actual, participantes)  # Siguiente turno normal
+            turno_actual = siguiente_turno(turno_actual, participantes)
 
         if not saltar_ronda:
             if turno_actual == 1:
                 rondas += 1
                 if rondas < num_rondas:
-                    mostrar_puntaje_parcial(participantes)  # Mostrar puntaje parcial
+                    mostrar_puntaje_parcial(participantes)
                     continuar = input("\n¿Desea continuar a la siguiente ronda? (S/N): ")
                     if continuar.lower() == "n":
                         continuar_juego = False
-                    limpiar_consola()  # Limpia la consola antes de cada ronda
+                    limpiar_consola()
                     print("\nJugadores:")
                     for jugador in participantes.values():
                         print(f"{jugador['nombre']} - Aciertos: {jugador['aciertos']} - Errores: {jugador['errores']}")
@@ -131,7 +126,7 @@ def siguiente_turno(turno_actual, participantes):
     # Hecho por: Brian Duarte
     # Modificado por:
     # Corregido por:
-
+    
     num_jugadores = len(participantes)
     siguiente_turno = turno_actual + 1
     if siguiente_turno > num_jugadores:
@@ -146,7 +141,7 @@ def mostrar_puntaje_parcial(participantes):
     # Hecho por: Brian Duarte
     # Modificado por:
     # Corregido por:
-
+    
     print("\nPuntaje Parcial:")
     for jugador in participantes.values():
         puntaje_parcial = jugador['puntos']
