@@ -1,6 +1,6 @@
 #Repositorio del TP parte 1 Pasapalabras
 
-En este Branch se guarda de desarrollo finalizado del TP_PasaPalabra_Parte2
+En este Branch se guarda el desarrollo finalizado del TP_PasaPalabra_Parte2
 
 #integrantes del Grupo Digital: Walter Britez. Nahuel Cabrera. Genesis Pintos. Brian Duarte. Felipe Gazcon.
 
