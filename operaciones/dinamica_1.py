@@ -138,21 +138,22 @@ def jugar(participantes, configuracion):
     # Modificado por: Walter Britez
     # Corregido por:
     palabras = leer_archivo_csv()
-    turno_actual = 1
+    #turno_actual = 1
     turno_jugador = 1
     rondas = 0
     continuar_juego = True
     resultado_partida = []
     while rondas < int(configuracion[MAX_PARTIDAS]) and continuar_juego:
-        turno_actual = 1
-        while turno_actual <= int(configuracion[CANT_TURNO]):
+        #turno_actual = 1
+        #while turno_actual <= int(configuracion[CANT_TURNO]):
+        for turno_actual in range(1,(int(configuracion[CANT_TURNO]))+1):
             mostar_participantes(participantes)
             rosco = random.choice(palabras)
             mostrar_datos(rondas, turno_actual, turno_jugador, participantes, rosco)
             procesar_respuesta(turno_actual, turno_jugador, participantes, configuracion, resultado_partida, rosco,
                                rondas)
             turno_jugador = siguiente_turno(turno_jugador, participantes)  # Siguiente turno si se pasa
-            turno_actual += 1
+            #turno_actual += 1
             limpiar_consola()
         rondas += 1
         if rondas < int(configuracion[MAX_PARTIDAS]) and continuar_juego:
