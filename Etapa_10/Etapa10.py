@@ -1,4 +1,3 @@
-import csv
 import os
 
 RUTA_ARCHIVO = os.path.join("Etapa_10", "configuracion.csv")
@@ -17,14 +16,12 @@ def reseteo_archivo_config():
     Funcion para devolver el .csv a sus valores originales
     '''
     with open(RUTA_ARCHIVO, "w", encoding="utf-8", newline="") as escritura_config:
-
-        escritor = csv.writer(escritura_config, delimiter=",")
-        escritor.writerows(VALORES_ORIGINALES)
+        for i in VALORES_ORIGINALES:
+            escritura_config.write(f"{i[0]},{i[1]}\n")
 
 def nuevo_valor_config(valor_inicial):
     '''
-    Funcion para decidir si cambiar las configuraciones y poder cambiar cada valor de la 
-    configuracion preexistente.
+    Funcion para que el usuario decida si cambiar la configuracion presentada, y a que valor cambiarla.
     '''
     devolucion = valor_inicial
     quiere_cambiar_valor = input("Si quiere cambiar el valor de esta configuracion, introduzca el valor deseado. \nDe no ser asi, introduzca 'n'. ")
@@ -34,27 +31,36 @@ def nuevo_valor_config(valor_inicial):
         devolucion = nuevo_valor_config(valor_inicial)
     return devolucion
 
+def lectura_configuracion():
+    '''
+    Funcion para leer el csv con los valores ACTUALES y retornarlos en formato de lista, para hacer mas facil la utilizacionde estos
+    '''
+    configuracion_actual = []
+    with open(RUTA_ARCHIVO, "r", encoding="utf-8") as configuracion:
+        valores = configuracion.readlines()
+        for i in valores:
+            configuracion_actual.append(i.strip().split(","))
+    return configuracion_actual
+
 def establecer_configuracion():
     '''
     Primero usamos la función para resetear la configuración, luego leemos la configuración como está y armamos
-    una lista, preguntando si quiere mantener ese valor o modificandolo. Luego, un writer sobreescribe los nuevos
+    una lista, preguntando si quiere mantener ese valor o modificandolo. Luego, se sobreescriben los nuevos
     valores.
     Hecho por: Felipe Gazcon
     Modificado por: 
     '''
     reseteo_archivo_config()
-    filas_nuevas = []
-    with open(RUTA_ARCHIVO, "r", encoding="utf-8") as lectura_config:
+    configuracion_actual = lectura_configuracion()
+    futura_configuracion = []
+    for i in configuracion_actual:
+        print(f"El valor actual de {i[0]} es: {i[1]}")
+        nuevo_valor = nuevo_valor_config(i[1])
+        futura_configuracion.append([i[0], nuevo_valor])
 
-        lector = csv.reader(lectura_config, delimiter=',')
-        lineas_configuracion = list(lector)
-        for i in lineas_configuracion:
-            print(f"{i[NOMBRE_CONFIGURACION]}:{i[VALOR_CONFIGURACION]}.")
-            valor = nuevo_valor_config(i[VALOR_CONFIGURACION])
-            filas_nuevas.append([i[NOMBRE_CONFIGURACION], valor])
-    
-    with open(RUTA_ARCHIVO, "w", encoding="utf-8", newline="") as escritura_config:
+    with open(RUTA_ARCHIVO, "w", encoding="utf-8", newline="") as escritura_csv:
+        for i in futura_configuracion:
+            escritura_csv.write(f"{i[0]}, {i[1]}\n")
 
-        escritor = csv.writer(escritura_config, delimiter=",")
-        escritor.writerows(filas_nuevas)
+establecer_configuracion()
 
