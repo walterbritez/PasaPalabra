@@ -35,7 +35,7 @@ def leer_archivo_csv(nombre_archivo):
 
 def iniciar_juego(num_rondas):
     """
-    Inicia el juego del pasapalabra con el número de rondas especificado.
+    Inicia el Juego del pasapalabra con el número de rondas especificado.
     """
     # Hecho por: Brian Duarte
     # Modificado por:
