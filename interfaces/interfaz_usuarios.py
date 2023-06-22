@@ -68,16 +68,16 @@ def es_ingreso_usuario(usuario):
     letras = 0
     numeros = 0
     simbolo = 0
-    if len(usuario)<=CANT_NOMBRE_MAX and len(usuario)>=CANT_CLAVE_MIN:
+    if len(usuario) <= CANT_NOMBRE_MAX and len(usuario) >= CANT_CLAVE_MIN:
         for caracter in usuario:
             if caracter.isalpha() and letras==0:
                 letras+=1
             elif caracter.isdigit() and numeros==0:
                 numeros+=1
-            elif caracter==CRITERIO_ESPECIAL:
+            elif caracter == CRITERIO_ESPECIAL:
                 simbolo+=1
         valido = letras + numeros + simbolo
-        if valido>=CANT_NOMBRE_VALIDA:
+        if valido >= CANT_NOMBRE_VALIDA:
             valido = True
         else:
             valido = False
@@ -100,7 +100,7 @@ def es_ingreso_clave(clave):
     minus = 0
     numero = 0
     simbolo = 0
-    if len(clave)<=CANT_CLAVE_MAX and len(clave)>=CANT_CLAVE_MIN:
+    if len(clave) <= CANT_CLAVE_MAX and len(clave) >= CANT_CLAVE_MIN:
         for caracter in clave:
             if caracter.isupper() and mayus==0:
                 mayus+=1
@@ -110,8 +110,8 @@ def es_ingreso_clave(clave):
                 numero+=1
             elif caracter in simbolos:
                 simbolo+=1
-        valido=simbolo+numero+minus+mayus
-        if valido>=CANT_CLAVE_VALIDA:
+        valido = simbolo + numero + minus + mayus
+        if valido >= CANT_CLAVE_VALIDA:
             valido = True
         else:
             valido = False
@@ -144,14 +144,14 @@ def registrar_contraseña(usuario_1,clave_1,clave_2,entrada,entrada_1,entrada_2)
         messagebox.showwarning('Error', 'Usuario y/o contraseña NO cumplen con los requisitos\n')
 
 def es_registrable(usuario,clave,clave_2,entrada,entrada_1,entrada_2):
-    no_registrado = False
+    esta_registrado = False
     archivo = open(ARCHIVO_USUARIOS,"r")
     for linea in archivo:
         linea = linea.rstrip("\n").split(",")
-        if linea[NOMBRE]==usuario.get():
-            no_registrado = True
+        if linea[NOMBRE] == usuario.get():
+            esta_registrado = True
     archivo.close()
-    if not no_registrado:
+    if not esta_registrado:
         registrar_contraseña(usuario,clave,clave_2,entrada,entrada_1,entrada_2)
     else:
         messagebox.showwarning('Error', 'El nombre de usuario ya está registrado\nRegistrese con otro nombre')
@@ -175,8 +175,8 @@ def registra_interfaz_usuario():
     fondo_1=tk.Label(vent_registrar,image=fondo).place(x=0,y=0,relwidth=1,relheight=1)
 
     usuario=tk.StringVar()
-    contraseña=tk.StringVar()
-    contraseña_1=tk.StringVar()
+    clave=tk.StringVar()
+    clave_2=tk.StringVar()
 
     #Entradas
 
@@ -184,18 +184,18 @@ def registra_interfaz_usuario():
     entrada.config(fg = 'green', justify = 'center')
     entrada.place(x=480,y=311)
 
-    entrada_1 = tk.Entry(vent_registrar, textvar=contraseña, width=18, relief="flat", bg=COLOR_ENTRADA, font=("Open sans",15))
+    entrada_1 = tk.Entry(vent_registrar, textvar=clave, width=18, relief="flat", bg=COLOR_ENTRADA, font=("Open sans",15))
     entrada_1.config(fg = 'green', justify = 'center',show="*")
     entrada_1.place(x=480,y=405)
 
-    entrada_2 = tk.Entry(vent_registrar, textvar=contraseña_1, width=18, relief="flat", bg=COLOR_ENTRADA, font=("Open sans",15))
+    entrada_2 = tk.Entry(vent_registrar, textvar=clave_2, width=18, relief="flat", bg=COLOR_ENTRADA, font=("Open sans",15))
     entrada_2.config(fg = 'green', justify = 'center',show="*")
     entrada_2.place(x=480,y=510)
 
     #Botones
 
     boton=tk.Button(vent_registrar,text="REGISTRAR!", cursor="hand2", bg=COLOR_BOTON,width=14, relief="flat",font=("Open Sans", 16, "bold"),
-                    command=lambda: es_registrable(usuario,contraseña,contraseña_1,entrada,entrada_1,entrada_2))
+                    command=lambda: es_registrable(usuario,clave,clave_2,entrada,entrada_1,entrada_2))
     boton.place(x=25,y=485)
 
     boton_1=tk.Button(vent_registrar,text="INGRESAR", cursor="hand2", bg=COLOR_BOTON,width=14, relief="flat",font=("Open Sans", 16, "bold"),
@@ -218,13 +218,13 @@ def validar_ingreso(usuario_1,clave_1,jugadores,entrada,entrada_1):
     if not usuario_1.get() in jugadores:
         for linea in archivo:
             linea = linea.rstrip("\n").split(",")
-            if linea[NOMBRE]==usuario_1.get() and linea[CLAVE]==clave_1.get():
+            if linea[NOMBRE] == usuario_1.get() and linea[CLAVE] == clave_1.get():
                 usuario_valido = True
                 jugadores.append(usuario_1.get())
         archivo.close()
-        if len(jugadores)==CANT_USARIOS_MAX:
+        if len(jugadores) == CANT_USARIOS_MAX:
             salir_interfaz()
-        if usuario_valido and len(jugadores)<CANT_USARIOS_MAX:
+        if usuario_valido and len(jugadores) < CANT_USARIOS_MAX:
             messagebox.showinfo('Bienvenido' , 'Usuario y Clave correctos')
             entrada.delete(0,tk.END),entrada_1.delete(0,tk.END) #Borra los datos cargados en la entrada si estos son validos
         elif not usuario_valido and len(jugadores)<CANT_USARIOS_MAX:
