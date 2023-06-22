@@ -11,7 +11,7 @@ def salir_iniciar():
     '''
     vent_entrada.destroy()
 
-def interfaz_salida():
+def salir_interfaz():
     '''
     Genera una interfaz de salida si el usuario a ingresado el máximo de jugadores permitidos
     Pre:
@@ -55,7 +55,7 @@ def regresar_entrada():
     vent_registrar.withdraw()
     vent_entrada.deiconify()
 
-def validar_ingreso_usuario(usuario):
+def es_ingreso_usuario(usuario):
     '''
     Valida que el nombre que haya ingresado el usuario esté dentro de los paramétros permitidos
     Pre: Recibe una cadena
@@ -85,7 +85,7 @@ def validar_ingreso_usuario(usuario):
         valido=False
     return valido
 
-def validar_ingreso_clave(clave):
+def es_ingreso_clave(clave):
     '''
     Valida que la clave que el usuario haya ingresado esté dentro de los paramétros establecidos
     Pre: Recibe una cadena
@@ -132,7 +132,7 @@ def registrar_contraseña(usuario_1,clave_1,clave_2,entrada,entrada_1,entrada_2)
     usuario=usuario_1.get()
     clave=clave_1.get()
     clave2=clave_2.get()
-    if validar_ingreso_clave(clave) and validar_ingreso_usuario(usuario) and clave==clave2:
+    if es_ingreso_clave(clave) and es_ingreso_usuario(usuario) and clave==clave2:
         archivo=open(ARCHIVO_USUARIOS,"a+")
         archivo.write(f"\n{usuario},{clave}")
         archivo.close()
@@ -144,19 +144,19 @@ def registrar_contraseña(usuario_1,clave_1,clave_2,entrada,entrada_1,entrada_2)
         messagebox.showwarning('Error', 'Usuario y/o contraseña NO cumplen con los requisitos\n')
 
 def es_registrable(usuario,clave,clave_2,entrada,entrada_1,entrada_2):
-    no_registrado=False
+    no_registrado = False
     archivo=open(ARCHIVO_USUARIOS,"r")
     for linea in archivo:
         linea=linea.rstrip("\n").split(",")
         if linea[NOMBRE]==usuario.get():
-            no_registrado=True
+            no_registrado = True
     archivo.close()
     if not no_registrado:
         registrar_contraseña(usuario,clave,clave_2,entrada,entrada_1,entrada_2)
     else:
         messagebox.showwarning('Error', 'El nombre de usuario ya está registrado\nRegistrese con otro nombre')
 
-def interfaz_registra_usuario():
+def interfaz_registrar_usuario():
     '''
     Genera una interfaz para registrar las entradas del usurio
     Pre:
@@ -223,7 +223,7 @@ def validar_ingreso(usuario_1,clave_1,jugadores,entrada,entrada_1):
                 jugadores.append(usuario_1.get())
         archivo.close()
         if len(jugadores)==CANT_USARIOS_MAX:
-            interfaz_salida()
+            salir_interfaz()
         if usuario_valido and len(jugadores)<CANT_USARIOS_MAX:
             messagebox.showinfo('Bienvenido' , 'Usuario y Clave correctos')
             entrada.delete(0,tk.END),entrada_1.delete(0,tk.END) #Borra los datos cargados en la entrada si estos son validos
@@ -268,7 +268,7 @@ def interfaz_entrada(jugadores):
     #Botones
 
     boton=tk.Button(vent_entrada, text="REGISTRARSE", cursor="hand2", bg=COLOR_BOTON, width=11, relief="flat", font=("Open sans",16,"bold"),
-                    command=lambda: interfaz_registra_usuario())
+                    command=lambda: interfaz_registrar_usuario())
     boton.place(x=66,y=522)
 
     boton_1=tk.Button(vent_entrada,text="INGRESAR", cursor="hand2", bg=COLOR_BOTON,width=10, relief="flat",font=("Open Sans", 16, "bold"),
