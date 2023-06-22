@@ -177,6 +177,7 @@ def obtener_configuracion():
     for linea in archivo:
         linea = linea.rstrip("\n").split(",")
         dicc[linea[NOMBRE_CONFIGURACION]] = linea[VALOR_CONFIGURACION]
+    archivo.close()
     return dicc
 
 
