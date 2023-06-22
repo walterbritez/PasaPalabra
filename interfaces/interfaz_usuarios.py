@@ -227,7 +227,7 @@ def validar_ingreso(usuario_1,clave_1,jugadores,entrada,entrada_1):
             messagebox.showinfo('Bienvenido' , 'Usuario y Clave correctos')
             entrada.delete(0,tk.END),entrada_1.delete(0,tk.END) #Borra los datos cargados en la entrada si estos son validos
         elif not usuario_valido and len(jugadores)<CANT_USARIOS_MAX:
-            messagebox.showwarning('Error', 'Usaurio y/o contraseña incorrecto/s\nsi no tiene cuenta por favor registrese')
+            messagebox.showwarning('Error', 'Usuario y/o contraseña incorrecto/s\nsi no tiene cuenta por favor registrese')
     else:
         messagebox.showwarning('Error', 'El usuario ya se ha ingresado.')
   
