@@ -119,7 +119,7 @@ def validar_ingreso_clave(clave):
         valido=False
     return valido
 
-def registrar_contraseña(usuario_1,clave_1,entrada,entrada_1,entrada_2):
+def registrar_contraseña(usuario_1,clave_1,clave_2,entrada,entrada_1,entrada_2):
     '''
     Registra la entrada del usuario en un archivo csv si ambas son validas
     Pre: Recibe dos cadenas 
@@ -131,7 +131,8 @@ def registrar_contraseña(usuario_1,clave_1,entrada,entrada_1,entrada_2):
 
     usuario=usuario_1.get()
     clave=clave_1.get()
-    if validar_ingreso_clave(clave) and validar_ingreso_usuario(usuario):
+    clave2=clave_2.get()
+    if validar_ingreso_clave(clave) and validar_ingreso_usuario(usuario) and clave==clave2:
         archivo=open(ARCHIVO_USUARIOS,"a+")
         archivo.write(f"\n{usuario},{clave}")
         archivo.close()
@@ -142,7 +143,7 @@ def registrar_contraseña(usuario_1,clave_1,entrada,entrada_1,entrada_2):
     else: 
         messagebox.showwarning('Error', 'Usuario y/o contraseña NO cumplen con los requisitos\n')
 
-def es_registrable(usuario,clave,entrada,entrada_1,entrada_2):
+def es_registrable(usuario,clave,clave_2,entrada,entrada_1,entrada_2):
     no_registrado=False
     archivo=open(ARCHIVO_USUARIOS,"r")
     for linea in archivo:
@@ -151,7 +152,7 @@ def es_registrable(usuario,clave,entrada,entrada_1,entrada_2):
             no_registrado=True
     archivo.close()
     if not no_registrado:
-        registrar_contraseña(usuario,clave,entrada,entrada_1,entrada_2)
+        registrar_contraseña(usuario,clave,clave_2,entrada,entrada_1,entrada_2)
     else:
         messagebox.showwarning('Error', 'El nombre de usuario ya está registrado\nRegistrese con otro nombre')
 
@@ -194,7 +195,7 @@ def interfaz_registra_usuario():
     #Botones
 
     boton=tk.Button(vent_registrar,text="REGISTRAR!", cursor="hand2", bg=COLOR_BOTON,width=14, relief="flat",font=("Open Sans", 16, "bold"),
-                    command=lambda: es_registrable(usuario,contraseña,entrada,entrada_1,entrada_2))
+                    command=lambda: es_registrable(usuario,contraseña,contraseña_1,entrada,entrada_1,entrada_2))
     boton.place(x=25,y=485)
 
     boton_1=tk.Button(vent_registrar,text="INGRESAR", cursor="hand2", bg=COLOR_BOTON,width=14, relief="flat",font=("Open Sans", 16, "bold"),
