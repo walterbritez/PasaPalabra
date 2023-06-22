@@ -143,7 +143,7 @@ def jugar(participantes, configuracion):
     rondas = 0
     continuar_juego = True
     resultado_partida = []
-    while rondas <= int(configuracion[MAX_PARTIDAS]) and continuar_juego:
+    while rondas < int(configuracion[MAX_PARTIDAS]) and continuar_juego:
         turno_actual = 1
         while turno_actual <= int(configuracion[CANT_TURNO]):
             mostar_participantes(participantes)
@@ -154,13 +154,13 @@ def jugar(participantes, configuracion):
             turno_jugador = siguiente_turno(turno_jugador, participantes)  # Siguiente turno si se pasa
             turno_actual += 1
             limpiar_consola()
+        rondas += 1
         if rondas < int(configuracion[MAX_PARTIDAS]) and continuar_juego:
             mostrar_puntaje_partida(participantes)  # Mostrar puntaje parcial
             obtener_puntaje_parcial(participantes)
             mostrar_puntaje_parcial(participantes)
             continuar_juego = es_continuar()
-        rondas += 1
-    obtener_puntaje_parcial(participantes)
+    #obtener_puntaje_parcial(participantes)
     mostrar_resultado(resultado_partida, participantes, rondas)
 
 
