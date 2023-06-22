@@ -19,7 +19,7 @@ def formar_archivo_csv():
         linea_definicion = definiciones.readline().rstrip()
 
         while linea_palabra:
-            if len(linea_palabra) > MIN_LARGO_PALABRA and linea_palabra.isalpha():
+            if len(linea_palabra) >= MIN_LARGO_PALABRA and linea_palabra.isalpha():
                 datos.write(f"{linea_palabra},{linea_definicion}\n")
 
             linea_palabra = palabras.readline().strip()
