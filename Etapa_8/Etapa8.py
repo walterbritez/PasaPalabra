@@ -19,15 +19,15 @@ def formar_archivo_csv():
     # Construir las rutas relativas a partir de la ubicación actual
     ruta_palabras = os.path.join(ruta_actual, "palabras.txt")
     ruta_definiciones = os.path.join(ruta_actual, "definiciones.txt")
-    ruta_nuevo_archivo = os.path.join(ruta_actual, "nuevo_archivo.csv")
+    ruta_diccionario = os.path.join(ruta_actual, "diccionario.csv")
 
-    with open(ruta_palabras, "r", encoding="utf-8") as palabras, open(ruta_definiciones, "r", encoding="utf-8") as definiciones, open(ruta_nuevo_archivo, "w", encoding="utf-8", newline="") as nuevo_archivo:
+    with open(ruta_palabras, "r", encoding="utf-8") as palabras, open(ruta_definiciones, "r", encoding="utf-8") as definiciones, open(ruta_diccionario, "w", encoding="utf-8", newline="") as diccionario:
         linea_palabra = palabras.readline().strip()
         linea_definicion = definiciones.readline().strip()
 
         while linea_palabra:
             if len(linea_palabra) >= MIN_LARGO_PALABRA and linea_palabra.isalpha():
-                nuevo_archivo.write(f"{linea_palabra},{linea_definicion}\n")
+                diccionario.write(f"{linea_palabra},'{linea_definicion}'\n")
 
             linea_palabra = palabras.readline().strip()
             linea_definicion = definiciones.readline().strip()

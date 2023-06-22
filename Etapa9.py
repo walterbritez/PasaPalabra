@@ -41,7 +41,7 @@ def iniciar_juego(num_rondas):
     # Modificado por:
     # Corregido por:
     
-    palabras = leer_archivo_csv("nuevo_archivo.csv")
+    palabras = leer_archivo_csv("diccionario.csv")
     participantes = {
         1: {"nombre": "Pedro", "aciertos": 0, "errores": 0, "puntos": 0},
         2: {"nombre": "Juan", "aciertos": 0, "errores": 0, "puntos": 0},
