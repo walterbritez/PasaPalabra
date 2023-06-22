@@ -6,7 +6,7 @@ from operaciones.dinamica_1 import iniciar_juego
 
 def main():
     """
-    Controla la ejecución del programa dirigiendo las llamadas a otras funciones.
+    Controla la ejecución del Programa dirigiendo las llamadas a otras funciones.
     Hecho por: Walter Britez
     Modificado por: Brian Duarte
     Corregido por:
