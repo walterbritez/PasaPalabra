@@ -1,5 +1,5 @@
 import estado_juego
-from interfaces.interfaz_usuarios import iniciar_interfaz_usuarios
+from interfaces.interfaz_usuarios import iniciar_interfaz
 from interfaces.interfaz_salida import salida_inesperada
 from operaciones.dinamica_1 import iniciar_juego
 
@@ -15,7 +15,7 @@ def main():
 
     continuar_juego = True
     while continuar_juego:
-        nombres_jugadores = iniciar_interfaz_usuarios()
+        nombres_jugadores = iniciar_interfaz()
 
         if not nombres_jugadores:
             continuar_juego = salida_inesperada()

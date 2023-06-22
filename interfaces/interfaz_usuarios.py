@@ -2,7 +2,7 @@ import tkinter as tk
 from tkinter import messagebox
 from interfaces.constantes_interfaces import*
 
-def salir_iniciar():
+def terminar_interfaz():
     '''
     Cierra la primer interfaz 
     Hecho por: Walter Britez
@@ -32,7 +32,7 @@ def salir_interfaz():
     #Boton
 
     boton=tk.Button(vent_salida,text="CONTINUAR!", cursor="hand2", bg=COLOR_BOTON,width=15 ,height=2, relief="flat",font=("Open Sans", 18, "bold"),
-                    command=lambda: salir_iniciar())
+                    command=lambda: terminar_interfaz())
     boton.place(x=295,y=459)
     
     vent_salida.mainloop()
@@ -49,7 +49,7 @@ def validar_salida(jugadores):
     if not jugadores:
         messagebox.showwarning('Error', 'No ha ingresado ningún usuario\nPor favor, ingrese una cuenta!')
     else:
-        salir_iniciar()
+        terminar_interfaz()
 
 def regresar_entrada():
     vent_registrar.withdraw()
@@ -64,25 +64,25 @@ def es_ingreso_usuario(usuario):
     Modificado por:
     Corregido por:
     '''
-    valido=0
-    letras=0
-    numeros=0
-    simbolo=0
+    valido = 0
+    letras = 0
+    numeros = 0
+    simbolo = 0
     if len(usuario)<=CANT_NOMBRE_MAX and len(usuario)>=CANT_CLAVE_MIN:
         for caracter in usuario:
             if caracter.isalpha() and letras==0:
                 letras+=1
             elif caracter.isdigit() and numeros==0:
                 numeros+=1
-            elif caracter==CRITERIO_USARIO:
+            elif caracter==CRITERIO_ESPECIAL:
                 simbolo+=1
-        valido=letras+numeros+simbolo
+        valido = letras + numeros + simbolo
         if valido>=CANT_NOMBRE_VALIDA:
-            valido=True
+            valido = True
         else:
-            valido=False
+            valido = False
     else:
-        valido=False
+        valido = False
     return valido
 
 def es_ingreso_clave(clave):
@@ -94,12 +94,12 @@ def es_ingreso_clave(clave):
     Modificado por: 
     Corregido por:
     '''
-    valido=0
-    simbolos="#!"
-    mayus=0
-    minus=0
-    numero=0
-    simbolo=0
+    valido = 0
+    simbolos = "#!"
+    mayus = 0
+    minus = 0
+    numero = 0
+    simbolo = 0
     if len(clave)<=CANT_CLAVE_MAX and len(clave)>=CANT_CLAVE_MIN:
         for caracter in clave:
             if caracter.isupper() and mayus==0:
@@ -112,11 +112,11 @@ def es_ingreso_clave(clave):
                 simbolo+=1
         valido=simbolo+numero+minus+mayus
         if valido>=CANT_CLAVE_VALIDA:
-            valido=True
+            valido = True
         else:
-            valido=False
+            valido = False
     else:
-        valido=False
+        valido = False
     return valido
 
 def registrar_contraseña(usuario_1,clave_1,clave_2,entrada,entrada_1,entrada_2):
@@ -129,11 +129,11 @@ def registrar_contraseña(usuario_1,clave_1,clave_2,entrada,entrada_1,entrada_2)
     Corregido por:
     '''
 
-    usuario=usuario_1.get()
-    clave=clave_1.get()
-    clave2=clave_2.get()
+    usuario = usuario_1.get()
+    clave = clave_1.get()
+    clave2 = clave_2.get()
     if es_ingreso_clave(clave) and es_ingreso_usuario(usuario) and clave==clave2:
-        archivo=open(ARCHIVO_USUARIOS,"a+")
+        archivo = open(ARCHIVO_USUARIOS,"a+")
         archivo.write(f"\n{usuario},{clave}")
         archivo.close()
         messagebox.showinfo('Registrado' , 'Usuario y Clave correctos.\nVuelva a Ingresar con su nueva cuenta')
@@ -145,9 +145,9 @@ def registrar_contraseña(usuario_1,clave_1,clave_2,entrada,entrada_1,entrada_2)
 
 def es_registrable(usuario,clave,clave_2,entrada,entrada_1,entrada_2):
     no_registrado = False
-    archivo=open(ARCHIVO_USUARIOS,"r")
+    archivo = open(ARCHIVO_USUARIOS,"r")
     for linea in archivo:
-        linea=linea.rstrip("\n").split(",")
+        linea = linea.rstrip("\n").split(",")
         if linea[NOMBRE]==usuario.get():
             no_registrado = True
     archivo.close()
@@ -156,7 +156,7 @@ def es_registrable(usuario,clave,clave_2,entrada,entrada_1,entrada_2):
     else:
         messagebox.showwarning('Error', 'El nombre de usuario ya está registrado\nRegistrese con otro nombre')
 
-def interfaz_registrar_usuario():
+def registra_interfaz_usuario():
     '''
     Genera una interfaz para registrar las entradas del usurio
     Pre:
@@ -214,12 +214,12 @@ def validar_ingreso(usuario_1,clave_1,jugadores,entrada,entrada_1):
     Corregido por:
     '''
     usuario_valido = False
-    archivo=open(ARCHIVO_USUARIOS,"r")
+    archivo = open(ARCHIVO_USUARIOS,"r")
     if not usuario_1.get() in jugadores:
         for linea in archivo:
-            linea=linea.rstrip("\n").split(",")
+            linea = linea.rstrip("\n").split(",")
             if linea[NOMBRE]==usuario_1.get() and linea[CLAVE]==clave_1.get():
-                usuario_valido=True
+                usuario_valido = True
                 jugadores.append(usuario_1.get())
         archivo.close()
         if len(jugadores)==CANT_USARIOS_MAX:
@@ -232,7 +232,7 @@ def validar_ingreso(usuario_1,clave_1,jugadores,entrada,entrada_1):
     else:
         messagebox.showwarning('Error', 'El usuario ya se ha ingresado.')
   
-def interfaz_entrada(jugadores):
+def iniciar_interfaz_entrada(jugadores):
     '''
     Genera la primer interfaz. Esta permitirá dos entradas
     Pre:Recibe una lista vacia
@@ -268,7 +268,7 @@ def interfaz_entrada(jugadores):
     #Botones
 
     boton=tk.Button(vent_entrada, text="REGISTRARSE", cursor="hand2", bg=COLOR_BOTON, width=11, relief="flat", font=("Open sans",16,"bold"),
-                    command=lambda: interfaz_registrar_usuario())
+                    command=lambda: registra_interfaz_usuario())
     boton.place(x=66,y=522)
 
     boton_1=tk.Button(vent_entrada,text="INGRESAR", cursor="hand2", bg=COLOR_BOTON,width=10, relief="flat",font=("Open Sans", 16, "bold"),
@@ -282,7 +282,7 @@ def interfaz_entrada(jugadores):
     vent_entrada.mainloop()
     return jugadores
 
-def iniciar_interfaz_usuarios():
+def iniciar_interfaz():
     '''
     Pre:
     Post: Devuelve una lista 
@@ -290,6 +290,6 @@ def iniciar_interfaz_usuarios():
     Modificado por:
     Corregido por:
     '''
-    jugadores=[]
-    jugadores=interfaz_entrada(jugadores)
+    jugadores = []
+    jugadores = iniciar_interfaz_entrada(jugadores)
     return jugadores
