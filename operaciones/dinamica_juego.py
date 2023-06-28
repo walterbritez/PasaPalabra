@@ -6,7 +6,6 @@ from operaciones.configuracion import establecer_configuracion
 from interfaces.interfaz_salida import es_salir
 from interfaces.interfaz_juego import *
 
-
 def limpiar_consola():
     """
     Limpia la consola según el sistema operativo (Windows, Linux, macOS).
@@ -84,7 +83,7 @@ def obtener_puntaje_parcial(participantes):
         parcial = jugador[PUNTOS]
         jugador[PUNT_PARCIALES] += parcial
         print(f"\nPrueba de que parciales se está sumando {jugador[PUNT_PARCIALES]}")
-        jugador[PUNTOS] = 0
+        jugador[PUNTOS] = REINICIO_PUNTO # = 0
 
 
 def procesar_respuesta(turno_actual, turno_jugador, participantes, configuracion, resultado_partida, rosco, rondas):
@@ -97,7 +96,7 @@ def procesar_respuesta(turno_actual, turno_jugador, participantes, configuracion
     
     repetir_pregunta = True
     while repetir_pregunta:
-        respuesta = input("Ingrese la palabra correspondiente (presione P para Pasapalabra): ")
+        respuesta = input("\nIngrese la palabra correspondiente (presione P para Pasapalabra): ")
         if respuesta.lower() == "":
             limpiar_consola()
             mostrar_datos(rondas, turno_actual, turno_jugador, participantes, rosco)  # Mostrar los datos nuevamente
@@ -109,13 +108,16 @@ def procesar_respuesta(turno_actual, turno_jugador, participantes, configuracion
             repetir_pregunta = False
 
     limpiar_consola()  # Limpia la consola después de ingresar una palabra
-    if respuesta.lower() == rosco[0].lower():
+    if respuesta.lower() == rosco[PAL_SELECIONADAS][turno_actual-1][0]:
         print("La palabra es correcta.")
         participantes[turno_jugador][ACIERTOS] += 1
         participantes[turno_jugador][PUNTOS] += int(configuracion[PTOS_ACIERTOS])
         resultado_partida.append(
-            f"Ronda {rondas + 1} - Turno {turno_jugador} - Letra: {rosco[0][0]} - Jugador: {participantes[turno_jugador][JUGADOR]} - Palabra de {len(rosco[0])} letras - {rosco[0]} - Acierto"
+            f"Ronda {rondas + 1} - Turno {turno_actual} - Letra: {rosco[0][turno_actual-1][0]} - Jugador: {participantes[turno_jugador][JUGADOR]} - Palabra de {len(rosco[0][turno_actual-1][0])} letras - {rosco[1][turno_actual-1][0]} - Acierto"
+
         )
+        rosco[TRN_ROSCO][turno_actual-1][0] = str(turno_actual)
+        rosco[ROSCO_VACIO][turno_actual-1][0] = ACIERTO
     elif respuesta.lower() == "p":
         print("Pasaste al siguiente turno sin ingresar una palabra.")
         turno_jugador = siguiente_turno(turno_actual, participantes)  # Siguiente turno si se pasa
@@ -124,10 +126,64 @@ def procesar_respuesta(turno_actual, turno_jugador, participantes, configuracion
         participantes[turno_jugador][ERRORES] += 1
         participantes[turno_jugador][PUNTOS] -= int(configuracion[PTOS_ERRORES])
         resultado_partida.append(
-            f"Ronda {rondas + 1} - Turno {turno_jugador} - Letra: {rosco[0][0]} - Jugador: {participantes[turno_jugador][JUGADOR]} - Palabra de {len(rosco[0])} letras - {respuesta} - Error - Palabra correcta: {rosco[0]}"
+            f"Ronda {rondas + 1} - Turno {turno_actual} - Letra: {rosco[0][turno_actual-1][0]} - Jugador: {participantes[turno_jugador][JUGADOR]} - Palabra de {len(rosco[1][turno_actual-1][0])} letras - {respuesta} - Error - Palabra correcta: {rosco[1][turno_actual-1][0]}"
         )
-    
+        rosco[TRN_ROSCO][turno_actual-1][0] = str(turno_actual)
+        rosco[ROSCO_VACIO][turno_actual-1][0] = ERROR
+
     turno_jugador = siguiente_turno(turno_actual, participantes)  # Siguiente turno
+
+def seleccionar_palabras(diccionario, letras, configuracion):
+    """ 
+    Pre: Recibe un diccionario válido y la lista 'letras' tendrá al menos 10 elementos
+    Post: Devuelve una lista ordenada alfabéticamente con palabras selectas al azar del diccionario
+    Hecha por: Genesis Pinto 
+    Modificado por: Walter Britez (reutilizacion de codigo)
+    """
+    letras_seleccionadas = random.sample(letras, int(configuracion[CANT_TURNO])) 
+    letras_seleccionadas_ordenadas = sorted(letras_seleccionadas)
+    
+    palabras_seleccionadas=[]
+    palabras_definiciones={}
+    
+
+    ## CORRECCION: Esta bien la idea pero es muy ineficiente, se recorren todas las palabras por cada letra seleccionada.
+    ## Se deberia recorrer las palabras una única vez.
+    ## Walter Britez: Está correción no fue posible porque me quedé sin tiempo
+    for letra in letras_seleccionadas_ordenadas:
+        palabras_candidatas = []
+        # Se encarga de seleccionar las palabras, según su índice, que coincidan con letras_seleccionadas_ordenadas 
+        # y las agrega a palabras_candidatas en cada iteración
+        for palabra in diccionario.keys():
+            if palabra.startswith(letra):
+                palabras_candidatas.append(palabra)
+                
+        if palabras_candidatas:
+            palabra_elegida = random.choice(palabras_candidatas)
+            palabras_seleccionadas.append([palabra_elegida,diccionario[palabra_elegida]])
+        letras_rosco=[]
+        for letras in letras_seleccionadas_ordenadas:
+            letras_rosco.append([letras])
+    palabras_definiciones[LETRAS_SELECIONADAS]=letras_rosco
+    palabras_definiciones[PAL_SELECIONADAS]=palabras_seleccionadas
+    return palabras_definiciones
+
+def generar_rosco(configuracion):
+    # Hecho por: Walter Britez
+    # Modificado por: 
+    # Corregido por:
+    conjunto_letras = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n",
+                       "ñ", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"]
+    resultado_rosco = []
+    turnos_rosco = []
+    palabras=leer_archivo_csv()
+    palabras_rosco = seleccionar_palabras(palabras,conjunto_letras,configuracion)
+    for i in range(1,(int(configuracion[CANT_TURNO])+1)):
+        resultado_rosco.append([" "])
+        turnos_rosco.append([" "])
+    palabras_rosco[ROSCO_VACIO] = resultado_rosco
+    palabras_rosco[TRN_ROSCO] = turnos_rosco
+    return palabras_rosco
 
 
 def jugar(participantes, configuracion):
@@ -137,23 +193,18 @@ def jugar(participantes, configuracion):
     # Hecho por: Brian Duarte
     # Modificado por: Walter Britez
     # Corregido por:
-    palabras = leer_archivo_csv()
-    #turno_actual = 1
     turno_jugador = 1
     rondas = 0
     continuar_juego = True
     resultado_partida = []
     while rondas < int(configuracion[MAX_PARTIDAS]) and continuar_juego:
-        #turno_actual = 1
-        #while turno_actual <= int(configuracion[CANT_TURNO]):
+        rosco=generar_rosco(configuracion)
         for turno_actual in range(1,(int(configuracion[CANT_TURNO]))+1):
-            mostar_participantes(participantes)
-            rosco = random.choice(palabras)
+            mostar_participantes(participantes,rosco)
             mostrar_datos(rondas, turno_actual, turno_jugador, participantes, rosco)
             procesar_respuesta(turno_actual, turno_jugador, participantes, configuracion, resultado_partida, rosco,
                                rondas)
             turno_jugador = siguiente_turno(turno_jugador, participantes)  # Siguiente turno si se pasa
-            #turno_actual += 1
             limpiar_consola()
         rondas += 1
         if rondas < int(configuracion[MAX_PARTIDAS]) and continuar_juego:
@@ -161,9 +212,9 @@ def jugar(participantes, configuracion):
             obtener_puntaje_parcial(participantes)
             mostrar_puntaje_parcial(participantes)
             continuar_juego = es_continuar()
-    #obtener_puntaje_parcial(participantes)
     mostrar_resultado(resultado_partida, participantes, rondas)
-
+           
+        
 
 def obtener_configuracion():
     """

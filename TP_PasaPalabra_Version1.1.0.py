@@ -1,7 +1,7 @@
 import estado_juego
 from interfaces.interfaz_usuarios import iniciar_interfaz
 from interfaces.interfaz_salida import salida_inesperada
-from operaciones.dinamica_1 import iniciar_juego
+from operaciones.dinamica_juego import iniciar_juego
 
 
 def main():

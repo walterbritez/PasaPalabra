@@ -34,17 +34,10 @@ def mostrar_resultado(resultado_partida,participantes,rondas):
     print("\nPuntaje de la partida:")
     for jugador in participantes.values():
         print(f"{jugador[JUGADOR]} - Puntos: {jugador[PUNTOS]}")
-    '''
-    print("\nPuntaje Parcial:")
-    for jugador in participantes.values():
-        puntaje_parcial = jugador[PUNTOS]
-        print(f"{jugador[JUGADOR]} - {puntaje_parcial} puntos")
-    '''
 
     print("\nReporte final del juego:")
     print("Reporte Final: Partidas jugadas:", rondas)
     puntajes_finales = sorted(participantes.items(), key=lambda x: x[1][PUNT_PARCIALES], reverse=True)
     print("Puntaje Final:")
     for i, jugador in enumerate(puntajes_finales):
-        #print(f"{i + 1}. {jugador[1][JUGADOR]} - {jugador[1][PUNT_PARCIALES]} puntos")
         print(f"{i + 1}. {jugador[1][JUGADOR]} - {(jugador[1][PUNT_PARCIALES])+(participantes[1][PUNTOS])} puntos")
