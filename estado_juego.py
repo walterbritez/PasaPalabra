@@ -6,7 +6,7 @@ from interfaces.constantes_interfaces import*
 
 def verificar_archivo_usuarios():
     '''
-    Verifica que el archivo usario exista... en caso contrario creará un archivo .csv
+    Verifica que el archivo usario exista en caso contrario creará un archivo .csv
     Hecho por: Walter Britez
     Modificado por:
     Corregido por:
@@ -21,15 +21,15 @@ def verificar_archivo_usuarios():
 
 def verificar_archivos_constantes():
     if not os.path.isfile(ARCHIVO_CONSTANTES):
-        ruta=os.getcwd()
+        ruta = os.getcwd()
         messagebox.showwarning('Error', f"No se ha encontrado el archivo 'constantes_archivos'\n\nEn: {ruta}/imagenes/?")
         raise FileExistsError("No se encuentra el archivo 'constantes.py'")
     elif not os.path.isfile(AR_CONST_OPERACIONES):
-        ruta=os.getcwd()
+        ruta = os.getcwd()
         messagebox.showwarning('Error', f"No se ha encontrado el archivo 'constantes_operaciones'\n\nEn: {ruta}/imagenes/?")
         raise FileExistsError("No se encuentra el archivo 'constantes_operaciones.py'")
     elif not os.path.isfile(AR_CONST_INTERFACES):
-        ruta=os.getcwd()
+        ruta = os.getcwd()
         messagebox.showwarning('Error', f"No se ha encontrado el archivo 'constantes_operaciones'\n\nEn: {ruta}/imagenes/?")
         raise FileExistsError("No se encuentra el archivo 'constantes_operaciones'")
         
@@ -67,4 +67,4 @@ def verificar_archivos():
     verificar_archivo_usuarios()
     verificar_archivos_constantes()
     verificar_archivos_txt()
-    verificar_archivos_constantes()
+    verificar_fotos()
