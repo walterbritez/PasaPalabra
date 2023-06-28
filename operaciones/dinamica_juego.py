@@ -30,12 +30,12 @@ def leer_archivo_csv():
     # Modificado por: Walter Britez
     # Corregido por:
 
-    palabras = []
+    dicc={}
     with open(ARCHIVO_DATOS, "r", encoding="utf-8") as archivo_csv:
         for linea in archivo_csv:
             palabra = linea.strip().split(',')
-            palabras.append(palabra)
-    return palabras
+            dicc[palabra[IND_PALABRA]]=palabra[IND_DEFINICION]
+    return dicc
 
 
 def siguiente_turno(turno_actual, participantes):
@@ -45,7 +45,6 @@ def siguiente_turno(turno_actual, participantes):
     # Hecho por: Brian Duarte
     # Modificado por: Walter Britez
     # Corregido por:
-
     num_jugadores = len(participantes)
     siguiente_turno = turno_actual + 1
     if siguiente_turno > num_jugadores:
@@ -82,8 +81,7 @@ def obtener_puntaje_parcial(participantes):
     for jugador in participantes.values():
         parcial = jugador[PUNTOS]
         jugador[PUNT_PARCIALES] += parcial
-        print(f"\nPrueba de que parciales se está sumando {jugador[PUNT_PARCIALES]}")
-        jugador[PUNTOS] = REINICIO_PUNTOS # = 0
+        jugador[PUNTOS] = REINICIO_PUNTOS
 
 
 def procesar_respuesta(turno_actual, turno_jugador, participantes, configuracion, resultado_partida, rosco, rondas):
@@ -213,14 +211,13 @@ def jugar(participantes, configuracion):
             mostrar_puntaje_parcial(participantes)
             continuar_juego = es_continuar()
     mostrar_resultado(resultado_partida, participantes, rondas)
-           
-        
+
 
 def obtener_configuracion():
     """
     Lee el archivo de configuración y retorna un diccionario con los valores de configuración.
     """
-    # Hecho por: Felipe Gazcon
+    # Hecho por: Walter Britez (para el merge)
     # Modificado por:
     # Corregido por:
     dicc = {}
@@ -236,7 +233,7 @@ def obtener_datos_jugadores(nom_jug):
     """
     Crea un diccionario con los datos de los jugadores a partir de una lista de nombres.
     """
-    # Hecho por: Walter Britez
+    # Hecho por: Walter Britez (para el merge)
     # Modificado por:
     # Corregido por:
     dicc = {}
@@ -251,11 +248,12 @@ def iniciar_juego(nom_jugadores):
     """
     Inicia el juego del pasapalabra con los nombres de los jugadores proporcionados.
     """
-    # Hecho por: Walter Britez
+    # Hecho por: Walter Britez (para el merge)
     # Modificado por: 
     # Corregido por:
     continuar_jugando = True
     while continuar_jugando:
+        limpiar_consola()
         establecer_configuracion()
         configuracion = obtener_configuracion()
         participantes = obtener_datos_jugadores(nom_jugadores)
