@@ -83,7 +83,7 @@ def obtener_puntaje_parcial(participantes):
         parcial = jugador[PUNTOS]
         jugador[PUNT_PARCIALES] += parcial
         print(f"\nPrueba de que parciales se está sumando {jugador[PUNT_PARCIALES]}")
-        jugador[PUNTOS] = REINICIO_PUNTO # = 0
+        jugador[PUNTOS] = REINICIO_PUNTOS # = 0
 
 
 def procesar_respuesta(turno_actual, turno_jugador, participantes, configuracion, resultado_partida, rosco, rondas):
