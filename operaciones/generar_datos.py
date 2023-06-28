@@ -24,5 +24,3 @@ def formar_archivo_csv():
 
             linea_palabra = palabras.readline().strip()
             linea_definicion = definiciones.readline().strip()
-
-        print("Archivo 'nuevo_archivo.csv' generado correctamente.")
