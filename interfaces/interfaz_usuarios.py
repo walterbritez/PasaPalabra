@@ -156,7 +156,7 @@ def es_registrable(usuario,clave,clave_2,entrada,entrada_1,entrada_2):
     else:
         messagebox.showwarning('Error', 'El nombre de usuario ya está registrado\nRegistrese con otro nombre')
 
-def registra_interfaz_usuario():
+def registrar_interfaz_usuario():
     '''
     Genera una interfaz para registrar las entradas del usurio
     Pre:
@@ -268,7 +268,7 @@ def iniciar_interfaz_entrada(jugadores):
     #Botones
 
     boton=tk.Button(vent_entrada, text="REGISTRARSE", cursor="hand2", bg=COLOR_BOTON, width=11, relief="flat", font=("Open sans",16,"bold"),
-                    command=lambda: registra_interfaz_usuario())
+                    command=lambda: registrar_interfaz_usuario())
     boton.place(x=66,y=522)
 
     boton_1=tk.Button(vent_entrada,text="INGRESAR", cursor="hand2", bg=COLOR_BOTON,width=10, relief="flat",font=("Open Sans", 16, "bold"),
