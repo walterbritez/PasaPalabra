@@ -12,10 +12,10 @@ def verificar_archivo_usuarios():
     Corregido por:
     '''
     try:
-        archivo=open(ARCHIVO_USUARIOS)
+        archivo = open(ARCHIVO_USUARIOS)
         archivo.close()
     except FileNotFoundError:
-        archivo=open(ARCHIVO_USUARIOS,"w")
+        archivo = open(ARCHIVO_USUARIOS,"w")
         archivo.write(f"{CAMPO_1},{CAMPO_2}")
         archivo.close()
 
