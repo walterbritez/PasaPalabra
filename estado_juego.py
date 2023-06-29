@@ -22,15 +22,15 @@ def verificar_archivo_usuarios():
 def verificar_archivos_constantes():
     if not os.path.isfile(ARCHIVO_CONSTANTES):
         ruta = os.getcwd()
-        messagebox.showwarning('Error', f"No se ha encontrado el archivo 'constantes_archivos'\n\nEn: {ruta}/imagenes/?")
+        messagebox.showwarning('Error', f"No se ha encontrado el archivo 'constantes_archivos'\n\nEn: {ruta}/constantes/?")
         raise FileExistsError("No se encuentra el archivo 'constantes.py'")
     elif not os.path.isfile(AR_CONST_OPERACIONES):
         ruta = os.getcwd()
-        messagebox.showwarning('Error', f"No se ha encontrado el archivo 'constantes_operaciones'\n\nEn: {ruta}/imagenes/?")
+        messagebox.showwarning('Error', f"No se ha encontrado el archivo 'constantes_operaciones'\n\nEn: {ruta}/constantes/?")
         raise FileExistsError("No se encuentra el archivo 'constantes_operaciones.py'")
     elif not os.path.isfile(AR_CONST_INTERFACES):
         ruta = os.getcwd()
-        messagebox.showwarning('Error', f"No se ha encontrado el archivo 'constantes_operaciones'\n\nEn: {ruta}/imagenes/?")
+        messagebox.showwarning('Error', f"No se ha encontrado el archivo 'constantes_operaciones'\n\nEn: {ruta}/constantes/?")
         raise FileExistsError("No se encuentra el archivo 'constantes_operaciones'")
         
 def verificar_fotos():
@@ -50,11 +50,11 @@ def verificar_fotos():
 def verificar_archivos_txt():
     if not os.path.isfile(ARCHIVO_PALABRAS):
         ruta=os.getcwd()
-        messagebox.showwarning('Error', f"No se ha encontrado el archivo 'palabras.txt'\n\nEn: {ruta}/imagenes/?")
+        messagebox.showwarning('Error', f"No se ha encontrado el archivo 'palabras.txt'\n\nEn: {ruta}/archivos/?")
         raise FileExistsError("No se encuentra el archivo 'palabras.txt'")
     elif not os.path.isfile(ARCHIVO_DEFINICIONES):
         ruta=os.getcwd()
-        messagebox.showwarning('Error', f"No se ha encontrado el archivo 'constantes_archivos'\n\nEn: {ruta}/imagenes/?")
+        messagebox.showwarning('Error', f"No se ha encontrado el archivo 'constantes_archivos'\n\nEn: {ruta}/archivos/?")
         raise FileExistsError("No se encuentra el archivo 'definiciones.txt'")
 
 def verificar_archivos():
