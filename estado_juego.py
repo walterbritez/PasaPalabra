@@ -35,25 +35,25 @@ def verificar_archivos_constantes():
         
 def verificar_fotos():
     if not os.path.isfile(IMG_ENTRAR_JUGAR):
-        ruta=os.getcwd()
+        ruta = os.getcwd()
         messagebox.showwarning('Error', f"No se ha encontrado el archivo 'Entrar_jugar.png'\n\nEn: {ruta}/imagenes/?")
         raise FileExistsError("No se encuentra el archivo 'Entrar_jugar.png'")
     elif not os.path.isfile(IMG_REGISTRAR):
-        ruta=os.getcwd()
+        ruta = os.getcwd()
         messagebox.showwarning('Error', f"No se ha encontrado el archivo 'Registrar.png'\n\nEn {ruta}/imagenes/?")
         raise FileExistsError("No se encuentra el archivo 'Registrar.png'")
     elif not os.path.isfile(IMG_CONTINUAR):
-        ruta=os.getcwd()
+        ruta = os.getcwd()
         messagebox.showwarning('Error', f"No se ha encontrado el archivo 'Continuar.png'\n\nEn {ruta}/imagenes/?")
         raise FileExistsError("No se encuentra el archivo 'Continuar.png'")
     
 def verificar_archivos_txt():
     if not os.path.isfile(ARCHIVO_PALABRAS):
-        ruta=os.getcwd()
+        ruta = os.getcwd()
         messagebox.showwarning('Error', f"No se ha encontrado el archivo 'palabras.txt'\n\nEn: {ruta}/archivos/?")
         raise FileExistsError("No se encuentra el archivo 'palabras.txt'")
     elif not os.path.isfile(ARCHIVO_DEFINICIONES):
-        ruta=os.getcwd()
+        ruta = os.getcwd()
         messagebox.showwarning('Error', f"No se ha encontrado el archivo 'constantes_archivos'\n\nEn: {ruta}/archivos/?")
         raise FileExistsError("No se encuentra el archivo 'definiciones.txt'")
 
