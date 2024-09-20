@@ -1,7 +1,7 @@
 # Repositorio del TP parte 1 Pasapalabras
 
 En este Branch se guarda las etapas de desarrollo.
-Consta de dos Branches
+Aunque se trata de la rama 'main' no es la rama principal
 
 # integrantes del Grupo Digital:
 Walter Britez. 
