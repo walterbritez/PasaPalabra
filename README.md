@@ -1,6 +1,6 @@
-# Repositorio del TP parte 1 Pasapalabras
+# Repositorio del TP Pasapalabras
 
-En este Branch se guarda el desarrollo finalizado del TP_PasaPalabra_Parte2
+En este Branch se guarda el desarrollo finalizado de PasaPalabra
 
 ### integrantes del Grupo Digital: 
 
@@ -25,7 +25,7 @@ Walter Britez. Brian Duarte. Felipe Gazcon. Nahuel Cabrera. Genesis Pintos.
 
 ### Características:
 
-* Código tipeado en lenguaje Python. Para usarse en el sistema operativo de Windows
+* Para usarse en el sistema operativo de Windows / Linux
 * Verificar si se tiene instalado la biblioteca `tkinter`.
   * Entrar en la consola de python
   * Comprobar poniendo `import tkinter`
