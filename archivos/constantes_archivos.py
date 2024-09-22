@@ -1,0 +1,7 @@
+ARCHIVO_USUARIOS="./archivos/usuarios.csv"
+ARCHIVO_CONSTANTES="./archivos/constantes_archivos.py"
+IMG_ENTRAR_JUGAR="./imagenes/Entrar_jugar.png"
+IMG_REGISTRAR="./imagenes/Registrar.png"
+IMG_CONTINUAR="./imagenes/Continuar.png"
+CAMPO_1="usuario"
+CAMPO_2="clave"
