@@ -25,4 +25,9 @@ Walter Britez. Brian Duarte. Felipe Gazcon. Nahuel Cabrera. Genesis Pintos.
 
 ### Características:
 
-Código tipeado en lenguaje Python. Para usarse en el sistema operativo de Windows
+* Código tipeado en lenguaje Python. Para usarse en el sistema operativo de Windows
+* Verificar si se tiene instalado la biblioteca `tkinter`.
+  * Entrar en la consola de python
+  * Comprobar poniendo `import tkinter`
+  * En el caso de no tenerlo. En la terminal de linux poner el comando `sudo apt-get install python3-tk
+`   
